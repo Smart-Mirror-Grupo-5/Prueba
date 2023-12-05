@@ -1,0 +1,42 @@
+<!--Html básico-->
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>SmartMirror</title>
+</head>
+
+<body>
+    <header>
+        <h1>Sitio en Construcción</h1>
+    </header>
+    <img src="{% static 'images/pagina-en-construcción.jpg' %}" alt="En Construcción">
+
+    <p>Estamos trabajando para mejorar nuestro sitio. Disculpa las molestias.</p>
+    <button>Login</button>
+    <h1>Reproductor de Audio</h1>
+
+    <button onclick="reproducirAudio()">Reproducir</button>
+    <button onclick="pausarAudio()">Pausar</button>
+</body>
+<script>
+    const button = document.querySelector('button');
+    button.addEventListener('click', () => {
+        window.location.href = '{% url "login" %}';
+    });
+    let audio = new Audio("{% static 'audio/prueba.mp3' %}");
+
+    function reproducirAudio() {
+        audio.play();
+    }
+
+    function pausarAudio() {
+        audio.pause();
+    }
+</script>
+
+</html>

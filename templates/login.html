@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/fondo.css' %}">
+    <title>SmartMirror</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="{% static 'images/logo3.png' %}" alt="Logo">
+        </div>
+        <form class="formulario_inicio" method="post" action="{% url 'entrar' %}">
+            {% csrf_token %}
+            <div class="column">
+                <input type="text" placeholder="Usuario" name="nombre" class="input">
+                <input type="password" placeholder="Contraseña" name="contraseña" class="input">
+                <input type="submit" value="Iniciar Sesión" class="button">
+            </div>
+        </form>
+
+        <a class="olvidar-contraseña">¿Olvidaste tu contraseña?</a>
+    </div>
+
+    <div class="area">
+        <ul class="circles">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+    </div>
+</body>
+
+</html>
