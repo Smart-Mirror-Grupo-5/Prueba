@@ -15,7 +15,7 @@
         <div class="logo">
             <img src="{% static 'images/logo3.png' %}" alt="Logo">
         </div>
-        <form class="formulario_inicio" method="post" action="{% url 'entrar' %}">
+        <form class="formulario_inicio" method="post" action="{% url 'login' %}">
             {% csrf_token %}
             <div class="column">
                 <input type="text" placeholder="Usuario" name="nombre" class="input">
