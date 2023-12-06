@@ -3,4 +3,3 @@ pyttsx3
 Wave
 SpeechRecognition
 numpy
-sounddevice
