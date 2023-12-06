@@ -3,3 +3,4 @@ pyttsx3
 Wave
 SpeechRecognition
 numpy
+pyduv
