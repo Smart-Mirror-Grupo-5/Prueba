@@ -26,6 +26,7 @@
             })
                 .then(response => response.json())
                 .then(data => {
+                    console.log(data);
                     // Obtener la hora actual
                     const now = new Date();
                     const hora = now.toLocaleTimeString();

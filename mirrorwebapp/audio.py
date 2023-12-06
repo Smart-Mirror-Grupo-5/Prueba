@@ -1,45 +1,98 @@
-import speech_recognition as sr
-"import sounddevice as sd"
-import numpy as np
-import wave
+import pvrecorder
+from pvrecorder import PvRecorder
 import os
-import pyttsx3
+import wave
+import numpy as np
+import struct
+import time
+import speech_recognition as sr
 
 
-class Transcribir:
-    def __init__(self, canales: int, tasa_muestreo: int, tamanio_bufer: int, duracion_grabacion: int, ruta_archivo: str):
-        self.canales = canales
-        self.tasa_muestreo = tasa_muestreo
-        self.tamanio_bufer = tamanio_bufer
-        self.duracion_grabacion = duracion_grabacion
-        self.ruta_archivo = ruta_archivo
 
-    def grabacion_de_audio(self):
-        # si existe archivo de audio, borrarlo
-        if os.path.exists('audio_grabacion.wav'):
-            os.remove('audio_grabacion.wav')
+
+class Transcripcion:
+    def grabar(self):
+        # (32 milliseconds of 16 kHz audio)
+        recorder = PvRecorder(device_index=-1, frame_length=512)
+        audio = []
+        path = 'audio_recording.wav'
+        duration = 6
+
         try:
-            print("Grabando...")
-            audio_data = sd.rec(int(self.tasa_muestreo * self.duracion_grabacion),
-                                samplerate=self.tasa_muestreo, channels=self.canales, dtype=np.int16)
-            sd.wait()
+            recorder.start()
 
-            print("Grabacion finalizada.")
+            start_time = time.time()  # Marcar el tiempo de inicio
 
-            # Guardar el archivo de audio
-            wf = wave.open(self.ruta_archivo, 'wb')
-            wf.setnchannels(self.canales)
-            wf.setsampwidth(2)  # 16-bit audio
-            wf.setframerate(self.tasa_muestreo)
-            wf.writeframes(audio_data.tobytes())
-            wf.close()
+            while time.time() - start_time < duration:
+                frame = recorder.read()
+                audio.extend(frame)
 
-            resultado = self.transcribir_audio(self.ruta_archivo)
-
-            return resultado
+            # Detener la grabación y guardarla en el archivo especificado
+            recorder.stop()
+            with wave.open(path, 'w') as f:
+                f.setparams((1, 2, 16000, 512, "NONE", "NONE"))
+                f.writeframes(struct.pack("h" * len(audio), *audio))
+            recorder.delete()
 
         except Exception as exception:
             raise NameError(f"Error al grabar el audio: {exception}")
+
+    def trascribir(self):
+        try:
+            r = sr.Recognizer()
+            audio_file = sr.AudioFile('audio_recording.wav')
+
+            with audio_file as source:
+                audio = r.record(source)
+
+            texto = r.recognize_google(audio, language='es-ES')
+
+            return texto
+
+        except Exception as exception:
+            raise NameError(f"Error al transcribir el audio: {exception}")
+
+
+
+"""class Transcribir:
+    def __init__(self, device_index, frame_length, duration, file_path):
+        self.device_index = device_index
+        self.frame_length = frame_length
+        self.duration = duration
+        self.file_path = file_path
+
+    def grabacion_de_audio(self):
+        recorder = PvRecorder(
+            # (32 milliseconds of 16 kHz audio)
+            self.device_index, self.frame_length)
+        audio = []
+        path = self.file_path
+        try:
+            recorder.start()
+
+            start_time = time.time()  # Marcar el tiempo de inicio
+
+            while time.time() - start_time < self.duration:
+                frame = recorder.read()
+                audio.extend(frame)
+
+            # Detener la grabación y guardarla en el archivo especificado
+            recorder.stop()
+            with wave.open(path, 'w') as f:
+                f.setparams((1, 2, 16000, 512, "NONE", "NONE"))
+                f.writeframes(struct.pack("h" * len(audio), *audio))
+            recorder.delete()
+
+        except Exception as exception:
+            raise NameError(f"Error al grabar el audio: {exception}")
+
+        recognizer = sr.Recognizer()
+
+        with sr.AudioFile(self.file_path) as source:
+            audio_data = recognizer.record(source)
+            text = recognizer.recognize_google(audio_data, language='es-ES')
+
+        return text
 
     def transcribir_audio(self, ruta_audio):
         try:
@@ -54,4 +107,4 @@ class Transcribir:
             return texto
 
         except Exception as exception:
-            raise NameError(f"Error al transcribir el audio: {exception}")
+            raise NameError(f"Error al transcribir el audio: {exception}")"""

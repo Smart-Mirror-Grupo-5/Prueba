@@ -3,25 +3,24 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from .models import DatosPersona
 from django.views.decorators.csrf import csrf_exempt
-from .audio import Transcribir
+from .audio import Transcripcion
 
 
 @csrf_exempt
 def transcribir_audio(request):
     if request.method == 'POST':
-        canales = 1
-        tasa_muestreo = 44100
-        tamanio_bufer = 512
-        duracion_grabacion = 5
-        ruta_archivo = 'static/audio/audio.wav'
+        transcriptor = Transcripcion()
 
-        transcribir = Transcribir(
-            canales, tasa_muestreo, tamanio_bufer, duracion_grabacion, ruta_archivo)
+        try:
+            
+            transcriptor.grabar()  # Realizar la grabación de audio
 
-        recogida_audio = transcribir.grabacion_de_audio()
+            texto_transcrito = transcriptor.trascribir()  # Transcribir el audio grabado
 
-        # Devuelve la transcripción como JSON
-        return JsonResponse({'transcripcion': recogida_audio})
+            return JsonResponse({'transcripcion': texto_transcrito})
+
+        except NameError as e:
+            return JsonResponse({'error': str(e)}, status=500)
 
     return JsonResponse({'error': 'Método no permitido'}, status=405)
 
