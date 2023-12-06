@@ -4,7 +4,6 @@ from django.shortcuts import render, redirect
 from .models import DatosPersona
 from django.views.decorators.csrf import csrf_exempt
 from .audio import Transcribir
-import pyaudio
 
 
 @csrf_exempt
