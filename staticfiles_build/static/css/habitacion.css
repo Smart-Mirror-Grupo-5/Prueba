@@ -1,0 +1,42 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    max-width: 600px; /* Ajusta según sea necesario */
+    border-radius: 10px; 
+}
+
+.mirror, .user {
+    width: 80%; /* Ajusta según sea necesario */
+    padding: 20px;
+    background-color: #fff;
+    margin: 20px auto; /* Ajusta según sea necesario */
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border-radius: 10px; 
+}
+
+.arrow {
+    margin-left: 10px;
+    color: #2a6dbe; /* Cambia el color de la flecha según tus preferencias */
+}
+
+/* Estilos adicionales para mejorar la apariencia en dispositivos más pequeños */
+@media only screen and (max-width: 400px) {
+    .mirror, .user {
+        width: 90%;
+    }
+
+
+}
+

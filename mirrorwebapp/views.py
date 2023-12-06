@@ -26,7 +26,7 @@ def transcribir_audio(request):
     return JsonResponse({'error': 'Método no permitido'}, status=405)
 
 
-def entrar(request):
+def login(request):
     if request.method == 'POST':
         nombre_usuario = request.POST.get('nombre')
         contraseña = request.POST.get('contraseña')
@@ -36,11 +36,6 @@ def entrar(request):
 
         error_message = "Credenciales incorrectas. Inténtalo de nuevo."
         return render(request, 'login.html', {'error_message': error_message})
-
-    return render(request, 'login.html')
-
-
-def login(request):
     return render(request, 'login.html')
 
 

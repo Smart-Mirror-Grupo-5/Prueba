@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
 # Lista de orígenes permitidos para CSRF
 CSRF_TRUSTED_ORIGINS = [
+    'http://127.0.0.1:8000/',
     'https://smartmirrorresidencia.azurewebsites.net',
     # Agrega aquí otros orígenes permitidos si los hay
 ]
@@ -50,7 +51,7 @@ CSRF_TRUSTED_ORIGINS = [
 # Configuración de seguridad
 DEBUG = False  # Cambia a False en producción
 ALLOWED_HOSTS = ['smartmirrorresidencia.azurewebsites.net',
-                 'localhost']  # Dominios permitidos en producción
+                 'localhost', 'http://127.0.0.1:8000/']  # Dominios permitidos en producción
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
