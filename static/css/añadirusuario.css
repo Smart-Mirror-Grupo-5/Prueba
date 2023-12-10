@@ -9,20 +9,34 @@ body {
     min-height: 100vh;
 }
 
+.logo {
+    text-align: center;
+}
+
+.logo img {
+    width: 50px;
+    height: auto;
+}
+
 .container {
     position: relative;
-    width: 100%;
-    max-width: 600px; /* Ajusta según sea necesario */
+    width: 90%;
+    height: 80%;
+    margin-top: 50px; /* Ajusta según sea necesario */
+}
+
+.mirror {
+    text-align: center;
 }
 
 .formulario_inicio {
-    width: 80%; /* Ajusta según sea necesario */
-    padding: 20px;
+    width: 80%;
+    padding: 5%;
     background-color: #fff;
-    margin: 20px auto; /* Ajusta según sea necesario */
+    margin: 20px auto;
     box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-    /* Bordes circulares con esquinas más suaves */
     border-radius: 10px; 
+    
 }
 
 h1 {
@@ -46,6 +60,7 @@ textarea {
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
+    top: 1%;
 }
 
 select {
@@ -63,15 +78,7 @@ button {
     width: 100%;
     transition: opacity 0.3s ease-in-out;
 }
-.mirror, .user {
-    width: 80%; /* Ajusta según sea necesario */
-    padding: 20px;
-    background-color: #fff;
-    margin: 20px auto; /* Ajusta según sea necesario */
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    border-radius: 10px; 
-}
+
 button:hover {
     opacity: 0.8;
 }
