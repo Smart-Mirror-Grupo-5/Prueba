@@ -4,25 +4,36 @@ from django.shortcuts import render, redirect
 from .models import DatosPersona
 from django.views.decorators.csrf import csrf_exempt
 from .audio import Transcripcion
-
+import io
+import azure.cognitiveservices.speech as speechsdk
 
 @csrf_exempt
 def transcribir_audio(request):
     if request.method == 'POST':
-        transcriptor = Transcripcion()
+        audio_blob = io.BytesIO(request.body)
 
-        try:
-            
-            transcriptor.grabar()  # Realizar la grabación de audio
+        # Configurar el servicio de voz de Azure
+        azure_key = '/F28MIc5gYxYYl9CuMEQASAd9cdfCyqrZk1ZIhXaaBibsH1/b6FwnMjnNYIiSUnXRZUUApB4RXLY7D/t88xtQg=='
+        azure_endpoint = 'https://comunicacionespejito.europe.communication.azure.com/'
+        speech_config = speechsdk.SpeechConfig(
+            subscription=azure_key, endpoint=azure_endpoint)
 
-            texto_transcrito = transcriptor.trascribir()  # Transcribir el audio grabado
+        # Crear el reconocedor de voz con el audio proporcionado
+        audio_config = speechsdk.audio.AudioConfig(stream=audio_blob)
+        recognizer = speechsdk.SpeechRecognizer(
+            speech_config=speech_config, audio_config=audio_config)
 
-            return JsonResponse({'transcripcion': texto_transcrito})
+        # Realizar la transcripción
+        result = recognizer.recognize_once()
 
-        except NameError as e:
-            return JsonResponse({'error': str(e)}, status=500)
+        # Obtener el texto transcrito
+        texto_transcrito = result.text
+
+        # Devolver el texto transcrito como JSON
+        return JsonResponse({'texto_transcrito': texto_transcrito})
 
     return JsonResponse({'error': 'Método no permitido'}, status=405)
+
 
 
 def login(request):

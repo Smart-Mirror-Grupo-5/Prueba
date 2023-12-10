@@ -16,36 +16,74 @@
     </div>
     <div id="mensajeUsuarioContainer"></div>
     <div class="wrap">
-        <button id="animatedButton" class="button"><img src="{% static 'images/microfono.png' %}" alt=""></button>
+        <button id="empezar" class="button">Empezar</button>
+        <button id="terminar" class="button">Terminar</button>
     </div>
     <script>
-        let contador = 1; // Variable para mantener un conteo de los mensajes del usuario
-        document.getElementById('animatedButton').addEventListener('click', function () {
-            fetch('/transcribir_audio/', {
-                method: 'POST',
-            })
-                .then(response => response.json())
-                .then(data => {
-                    console.log(data);
-                    // Obtener la hora actual
-                    const now = new Date();
-                    const hora = now.toLocaleTimeString();
+        const startButton = document.getElementById('empezar');
+        const stopButton = document.getElementById('terminar');
 
-                    // solo la hora y minutos
-                    const horaMinutos = hora.split(':').slice(0, 2).join(':');
+        let audioChunks = [];
+        let mediaRecorder;
 
-                    // Crear un div para el mensaje del usuario con la hora y mostrar el texto de la transcripción
-                    const mensajeUsuarioContainer = document.getElementById('mensajeUsuarioContainer');
-                    const nuevoDiv = document.createElement('div');
-                    nuevoDiv.className = 'mensaje_usuario';
-                    nuevoDiv.innerHTML = `<h1>${data.transcripcion} <strong>${horaMinutos}</strong></h1>`;
-                    mensajeUsuarioContainer.appendChild(nuevoDiv);
-                    contador++; // Incrementar el contador para el siguiente mensaje
+        startButton.addEventListener('click', startRecording);
+        stopButton.addEventListener('click', stopRecording);
+
+        function startRecording() {
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then((stream) => {
+                    mediaRecorder = new MediaRecorder(stream);
+
+                    mediaRecorder.ondataavailable = (event) => {
+                        if (event.data.size > 0) {
+                            audioChunks.push(event.data);
+                        }
+                    };
+
+                    mediaRecorder.onstop = () => {
+                        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
+                        enviarAudioAlServidor(audioBlob);
+                    };
+
+                    startButton.disabled = true;
+                    stopButton.disabled = false;
+                    audioChunks = [];
+                    mediaRecorder.start();
                 })
-                .catch(error => console.error('Error:', error));
-        });
+                .catch((error) => {
+                    console.error('Error al obtener acceso al micrófono:', error);
+                });
+        }
+
+        function stopRecording() {
+            mediaRecorder.stop();
+            startButton.disabled = false;
+            stopButton.disabled = true;
+        }
+
+        function enviarAudioAlServidor(audioBlob) {
+            const formData = new FormData();
+            formData.append('audio', audioBlob);
+
+            fetch('/transcribir_audio/', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log('Respuesta del servidor:', data);
+                    const mensajeUsuarioContainer = document.getElementById('mensajeUsuarioContainer');
+                    const mensajeUsuario = document.createElement('div');
+                    mensajeUsuario.classList.add('mensaje_usuario');
+                    mensajeUsuario.innerHTML = data.texto;
+                    mensajeUsuarioContainer.appendChild(mensajeUsuario);
+                    mensajeUsuario.scrollIntoView();
+                })
+                .catch((error) => {
+                    console.error('Error al enviar audio al servidor:', error);
+                });
+        }
     </script>
 </body>
-
 
 </html>
