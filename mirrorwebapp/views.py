@@ -30,6 +30,7 @@ def reconocer_voz(request):
         elif speech_recognition_result.reason == speechsdk.ResultReason.Canceled:
             resultado = f"Reconocimiento de voz cancelado: {
                 speech_recognition_result.cancellation_details.error_details}"
+
         contestacion = consulta(resultado)
 
         return JsonResponse({'resultado': resultado, 'contestacion': contestacion})
