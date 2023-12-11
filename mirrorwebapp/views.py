@@ -4,15 +4,8 @@ from django.shortcuts import render, redirect
 from .models import DatosPersona
 from .respuestas import consulta
 from django.views.decorators.csrf import csrf_exempt
-from azure.cognitiveservices.speech import SpeechConfig, SpeechRecognizer, AudioConfig, ResultReason
-from bs4 import BeautifulSoup
-import requests
-import re
-import wikipedia
-import os
-from django.http import JsonResponse
-from django.shortcuts import render
-from azure.cognitiveservices.speech import SpeechConfig, SpeechRecognizer, AudioConfig, ResultReason
+import azure.cognitiveservices.speech as speechsdk
+
 
 @csrf_exempt
 def reconocer_voz(request):
@@ -20,32 +13,23 @@ def reconocer_voz(request):
         SPEECH_KEY = '3c6987d5f8264f6eafe7d3eb9929e5f8'
         SPEECH_REGION = 'westeurope'
 
-        # Configuración de Azure Speech
-        speech_config = SpeechConfig(subscription=SPEECH_KEY, region=SPEECH_REGION)
+        speech_config = speechsdk.SpeechConfig(
+            subscription=SPEECH_KEY, region=SPEECH_REGION)
         speech_config.speech_recognition_language = "es-ES"
 
-        # Configuración de audio para la transmisión
-        audio_config = AudioConfig(use_default_microphone=True)
+        audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)
+        speech_recognizer = speechsdk.SpeechRecognizer(
+            speech_config=speech_config, audio_config=audio_config)
 
-        # Configuración de reconocimiento de voz
-        speech_recognizer = SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
+        speech_recognition_result = speech_recognizer.recognize_once_async().get()
 
-        # Inicia la transmisión de audio en tiempo real desde el servicio de Azure Speech
-        stream = speech_recognizer.start_continuous_recognition()
-
-        # Recolecta el texto a medida que se reconoce
-        resultado = ""
-        for phrase in stream:
-            if phrase.reason == ResultReason.RecognizedSpeech:
-                resultado += phrase.text
-            elif phrase.reason == ResultReason.NoMatch:
-                resultado = "No se pudo reconocer ningún discurso."
-            elif phrase.reason == ResultReason.Canceled:
-                resultado = f"Reconocimiento de voz cancelado: {phrase.cancellation_details.reason}"
-
-        # Detén el reconocimiento continuo
-        speech_recognizer.stop_continuous_recognition()
-
+        if speech_recognition_result.reason == speechsdk.ResultReason.RecognizedSpeech:
+            resultado = speech_recognition_result.text
+        elif speech_recognition_result.reason == speechsdk.ResultReason.NoMatch:
+            resultado = "No se pudo reconocer ningún discurso."
+        elif speech_recognition_result.reason == speechsdk.ResultReason.Canceled:
+            resultado = f"Reconocimiento de voz cancelado: {
+                speech_recognition_result.cancellation_details.error_details}"
         contestacion = consulta(resultado)
 
         return JsonResponse({'resultado': resultado, 'contestacion': contestacion})
