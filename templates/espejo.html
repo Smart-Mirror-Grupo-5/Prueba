@@ -11,7 +11,8 @@
 
 <body>
     <button id="startRecognition">Iniciar Reconocimiento de Voz</button>
-    <div id="result"></div>
+    <button id="borrarConversacion">Borrar Conversación</button>
+    <div id="conversacion"></div>
 
     <script>
         $('#startRecognition').click(function () {
@@ -19,12 +20,27 @@
                 url: "/reconocer-voz/",
                 type: "POST",
                 success: function (response) {
-                    $('#result').html("<p>Pregunta: " + response.resultado + "</p><p>Respuesta: " + response.contestacion + "</p>");
+                    var pregunta = "<p><strong>Pregunta:</strong> " + response.resultado + "</p>";
+                    var respuesta = "<p><strong>Respuesta:</strong> " + response.contestacion + "</p>";
+                    var conversacion = pregunta + respuesta;
+
+                    $('#conversacion').append(conversacion);
+
+                    var speech = new SpeechSynthesisUtterance();
+                    speech.lang = 'es-ES';
+                    speech.text = response.contestacion;
+                    speech.rate = 1.5;
+
+                    speechSynthesis.speak(speech);
                 },
                 error: function (xhr, errmsg, err) {
                     console.log(xhr.status + ": " + xhr.responseText);
                 }
             });
+        });
+
+        $('#borrarConversacion').click(function () {
+            $('#conversacion').empty();
         });
     </script>
 </body>
