@@ -20,7 +20,9 @@ def reconocer_voz(request):
         speech_config = SpeechConfig(subscription=SPEECH_KEY, region=SPEECH_REGION)
         speech_config.speech_recognition_language = "es-ES"
 
+
         # Configuración de audio para la transmisión
+        audio_file_path = None
         audio_config = AudioConfig(filename=audio_file_path) if 'audio_file_path' in locals() else AudioConfig(use_default_microphone=True)
 
 
