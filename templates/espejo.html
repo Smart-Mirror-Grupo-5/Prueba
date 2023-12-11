@@ -6,13 +6,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reconocimiento de Voz</title>
+    <link rel="stylesheet" href="{% static 'css/espejo.css' %}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
+
+    <div class="mensaje_bot">
+        <h1>Hola!</h1>
+    </div>
+    <div id="mensajeUsuarioContainer"></div>
     <button id="startRecognition">Iniciar Reconocimiento de Voz</button>
     <button id="borrarConversacion">Borrar Conversación</button>
-    <div id="conversacion"></div>
 
     <script>
         $('#startRecognition').click(function () {
@@ -20,16 +25,16 @@
                 url: "/reconocer-voz/",
                 type: "POST",
                 success: function (response) {
-                    var pregunta = "<p><strong>Pregunta:</strong> " + response.resultado + "</p>";
-                    var respuesta = "<p><strong>Respuesta:</strong> " + response.contestacion + "</p>";
-                    var conversacion = pregunta + respuesta;
+                    var pregunta = "<h1>Pregunta:" + response.resultado + "</h1>";
+                    var respuesta = "<h1>Respuesta:" + response.contestacion + "</h1>";
 
-                    $('#conversacion').append(conversacion);
+                    $('#mensaje_usuario').append(pregunta);
+                    $('#mensaje_bot').append(respuesta);
 
                     var speech = new SpeechSynthesisUtterance();
                     speech.lang = 'es-ES';
                     speech.text = response.contestacion;
-                    speech.rate = 1.5;
+                    speech.rate = 2;
 
                     speechSynthesis.speak(speech);
                 },
@@ -40,7 +45,8 @@
         });
 
         $('#borrarConversacion').click(function () {
-            $('#conversacion').empty();
+            $('#mensaje_usuario').empty();
+            $('#mensaje_bot').empty();
         });
     </script>
 </body>
