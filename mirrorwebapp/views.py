@@ -22,6 +22,9 @@ def reconocer_voz(request):
         speech_config.speech_recognition_language = "es-ES"
 
         audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)
+        file_name = "outputaudio.wav"
+        file_config = speechsdk.audio.AudioOutputConfig(filename=file_name)
+        speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=file_config)
         speech_recognizer = speechsdk.SpeechRecognizer(
             speech_config=speech_config, audio_config=audio_config)
 
