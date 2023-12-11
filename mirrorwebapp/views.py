@@ -32,7 +32,7 @@ def reconocer_voz(request):
 
         return JsonResponse({'resultado': resultado})
 
-    return render(request, 'reconocimiento.html')
+    return render(request, 'espejo.html')
 
 
 def login(request):
