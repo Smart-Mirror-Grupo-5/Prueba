@@ -17,26 +17,25 @@ def reconocer_voz(request):
         SPEECH_KEY = '3c6987d5f8264f6eafe7d3eb9929e5f8'
         SPEECH_REGION = 'westeurope'
 
-        speech_config = speechsdk.SpeechConfig(
-            subscription=SPEECH_KEY, region=SPEECH_REGION)
+        speech_config = SpeechConfig(subscription=SPEECH_KEY, region=SPEECH_REGION)
         speech_config.speech_recognition_language = "es-ES"
 
-        audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)
-        file_name = "outputaudio.wav"
-        file_config = speechsdk.audio.AudioOutputConfig(filename=file_name)
-        speech_synthesizer = speechsdk.SpeechSynthesizer(speech_config=speech_config, audio_config=file_config)
-        speech_recognizer = speechsdk.SpeechRecognizer(
+        # Cambia a la configuración de audio de archivo
+        audio_file = os.path.join(os.getcwd(), "outputaudio.wav")
+        audio_config = AudioConfig(filename=audio_file)
+        
+        speech_recognizer = SpeechRecognizer(
             speech_config=speech_config, audio_config=audio_config)
 
-        speech_recognition_result = speech_recognizer.recognize_once_async().get()
+        speech_recognition_result = speech_recognizer.recognize_once()
 
-        if speech_recognition_result.reason == speechsdk.ResultReason.RecognizedSpeech:
+        if speech_recognition_result.reason == ResultReason.RecognizedSpeech:
             resultado = speech_recognition_result.text
-        elif speech_recognition_result.reason == speechsdk.ResultReason.NoMatch:
+        elif speech_recognition_result.reason == ResultReason.NoMatch:
             resultado = "No se pudo reconocer ningún discurso."
-        elif speech_recognition_result.reason == speechsdk.ResultReason.Canceled:
-            resultado = f"Reconocimiento de voz cancelado: {
-                speech_recognition_result.cancellation_details.error_details}"
+        elif speech_recognition_result.reason == ResultReason.Canceled:
+            resultado = f"Reconocimiento de voz cancelado: {speech_recognition_result.cancellation_details.reason}"
+
         contestacion = consulta(resultado)
 
         return JsonResponse({'resultado': resultado, 'contestacion': contestacion})
