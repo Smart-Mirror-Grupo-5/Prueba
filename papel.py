@@ -1,34 +1,30 @@
-import pvrecorder as pv
-import time
-import struct
+"""import os
+import azure.cognitiveservices.speech as speechsdk
 
-recorder = pv.PvRecorder(device_index=-1, frame_length=512, buffered_frames_count=50)
-recorder.start()
-duration = 6
+def recognize_from_microphone():
+    SPEECH_KEY ='3c6987d5f8264f6eafe7d3eb9929e5f8'
+    SPEECH_REGION ='westeurope'
 
-audio = b''  # Initialize as bytes
+    speech_config = speechsdk.SpeechConfig(subscription=SPEECH_KEY, region=SPEECH_REGION)
+    speech_config.speech_recognition_language="es-ES"
 
-start_time = time.time()  # Marcar el tiempo de inicio
+    audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)
+    speech_recognizer = speechsdk.SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
 
-while time.time() - start_time < duration:
-    frame = recorder.read()
-    audio += struct.pack("<" + "h" * len(frame), *frame)
+    print("Speak into your microphone.")
+    speech_recognition_result = speech_recognizer.recognize_once_async().get()
 
-recorder.stop()
+    if speech_recognition_result.reason == speechsdk.ResultReason.RecognizedSpeech:
+        print("Recognized: {}".format(speech_recognition_result.text))
+    elif speech_recognition_result.reason == speechsdk.ResultReason.NoMatch:
+        print("No speech could be recognized: {}".format(speech_recognition_result.no_match_details))
+    elif speech_recognition_result.reason == speechsdk.ResultReason.Canceled:
+        cancellation_details = speech_recognition_result.cancellation_details
+        print("Speech Recognition canceled: {}".format(cancellation_details.reason))
+        if cancellation_details.reason == speechsdk.CancellationReason.Error:
+            print("Error details: {}".format(cancellation_details.error_details))
+            print("Did you set the speech resource key and region values?")
 
-print(audio)
+recognize_from_microphone()"""
 
 
-import speech_recognition as sr
-
-rec = sr.Recognizer()
-
-# Convertir audio a texto
-try:
-    text = rec.recognize_google(audio, language='es-ES')  # Cambia el idioma según necesites
-    print("Texto reconocido:")
-    print(text)
-except sr.UnknownValueError:
-    print("No se pudo reconocer el audio")
-except sr.RequestError as e:
-    print(f"Error en la solicitud al servicio de reconocimiento de voz; {e}")

@@ -5,84 +5,27 @@
     {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat</title>
-    <link href='https://fonts.googleapis.com/css?family=Chivo' rel='stylesheet'>
-    <link rel="stylesheet" href="{% static 'css/espejo.css' %}">
+    <title>Reconocimiento de Voz</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
-    <div class="mensaje_bot">
-        <h1>Hola!</h1>
-    </div>
-    <div id="mensajeUsuarioContainer"></div>
-    <div class="wrap">
-        <button id="empezar" class="button">Empezar</button>
-        <button id="terminar" class="button">Terminar</button>
-    </div>
+    <button id="startRecognition">Iniciar Reconocimiento de Voz</button>
+    <div id="result"></div>
+
     <script>
-        const startButton = document.getElementById('empezar');
-        const stopButton = document.getElementById('terminar');
-
-        let audioChunks = [];
-        let mediaRecorder;
-
-        startButton.addEventListener('click', startRecording);
-        stopButton.addEventListener('click', stopRecording);
-
-        function startRecording() {
-            navigator.mediaDevices.getUserMedia({ audio: true })
-                .then((stream) => {
-                    mediaRecorder = new MediaRecorder(stream);
-
-                    mediaRecorder.ondataavailable = (event) => {
-                        if (event.data.size > 0) {
-                            audioChunks.push(event.data);
-                        }
-                    };
-
-                    mediaRecorder.onstop = () => {
-                        const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-                        enviarAudioAlServidor(audioBlob);
-                    };
-
-                    startButton.disabled = true;
-                    stopButton.disabled = false;
-                    audioChunks = [];
-                    mediaRecorder.start();
-                })
-                .catch((error) => {
-                    console.error('Error al obtener acceso al micrófono:', error);
-                });
-        }
-
-        function stopRecording() {
-            mediaRecorder.stop();
-            startButton.disabled = false;
-            stopButton.disabled = true;
-        }
-
-        function enviarAudioAlServidor(audioBlob) {
-            const formData = new FormData();
-            formData.append('audio', audioBlob);
-
-            fetch('/transcribir_audio/', {
-                    method: 'POST',
-                    body: formData
-                })
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log('Respuesta del servidor:', data);
-                    const mensajeUsuarioContainer = document.getElementById('mensajeUsuarioContainer');
-                    const mensajeUsuario = document.createElement('div');
-                    mensajeUsuario.classList.add('mensaje_usuario');
-                    mensajeUsuario.innerHTML = data.texto;
-                    mensajeUsuarioContainer.appendChild(mensajeUsuario);
-                    mensajeUsuario.scrollIntoView();
-                })
-                .catch((error) => {
-                    console.error('Error al enviar audio al servidor:', error);
-                });
-        }
+        $('#startRecognition').click(function () {
+            $.ajax({
+                url: "/reconocer-voz/",
+                type: "POST",
+                success: function (response) {
+                    $('#result').text(response.resultado);
+                },
+                error: function (xhr, errmsg, err) {
+                    console.log(xhr.status + ": " + xhr.responseText);
+                }
+            });
+        });
     </script>
 </body>
 

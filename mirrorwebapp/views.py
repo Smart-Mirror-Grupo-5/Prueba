@@ -3,37 +3,36 @@ from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from .models import DatosPersona
 from django.views.decorators.csrf import csrf_exempt
-from .audio import Transcripcion
-import io
 import azure.cognitiveservices.speech as speechsdk
 
+
 @csrf_exempt
-def transcribir_audio(request):
+def reconocer_voz(request):
     if request.method == 'POST':
-        audio_blob = io.BytesIO(request.body)
+        SPEECH_KEY = '3c6987d5f8264f6eafe7d3eb9929e5f8'
+        SPEECH_REGION = 'westeurope'
 
-        # Configurar el servicio de voz de Azure
-        azure_key = '/F28MIc5gYxYYl9CuMEQASAd9cdfCyqrZk1ZIhXaaBibsH1/b6FwnMjnNYIiSUnXRZUUApB4RXLY7D/t88xtQg=='
-        azure_endpoint = 'https://comunicacionespejito.europe.communication.azure.com/'
         speech_config = speechsdk.SpeechConfig(
-            subscription=azure_key, endpoint=azure_endpoint)
+            subscription=SPEECH_KEY, region=SPEECH_REGION)
+        speech_config.speech_recognition_language = "es-ES"
 
-        # Crear el reconocedor de voz con el audio proporcionado
-        audio_config = speechsdk.audio.AudioConfig(stream=audio_blob)
-        recognizer = speechsdk.SpeechRecognizer(
+        audio_config = speechsdk.audio.AudioConfig(use_default_microphone=True)
+        speech_recognizer = speechsdk.SpeechRecognizer(
             speech_config=speech_config, audio_config=audio_config)
 
-        # Realizar la transcripción
-        result = recognizer.recognize_once()
+        speech_recognition_result = speech_recognizer.recognize_once_async().get()
 
-        # Obtener el texto transcrito
-        texto_transcrito = result.text
+        if speech_recognition_result.reason == speechsdk.ResultReason.RecognizedSpeech:
+            resultado = speech_recognition_result.text
+        elif speech_recognition_result.reason == speechsdk.ResultReason.NoMatch:
+            resultado = "No se pudo reconocer ningún discurso."
+        elif speech_recognition_result.reason == speechsdk.ResultReason.Canceled:
+            resultado = f"Reconocimiento de voz cancelado: {
+                speech_recognition_result.cancellation_details.error_details}"
 
-        # Devolver el texto transcrito como JSON
-        return JsonResponse({'texto_transcrito': texto_transcrito})
+        return JsonResponse({'resultado': resultado})
 
-    return JsonResponse({'error': 'Método no permitido'}, status=405)
-
+    return render(request, 'reconocimiento.html')
 
 
 def login(request):

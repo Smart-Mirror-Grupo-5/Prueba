@@ -14,7 +14,7 @@ urlpatterns = [
     path('añadirusuario/', views.añadirusuario, name='añadirusuario'),
     path('ayuda/', views.ayuda, name='ayuda'),
     path('habitacion/', views.habitacion, name='habitacion'),
-    path('transcribir_audio/', views.transcribir_audio, name='transcribir_audio'),
+    path('reconocer-voz/', views.reconocer_voz, name='reconocer_voz'),
 ]
 
 
