@@ -9,6 +9,10 @@ from bs4 import BeautifulSoup
 import requests
 import re
 import wikipedia
+import os
+from django.http import JsonResponse
+from django.shortcuts import render
+from azure.cognitiveservices.speech import SpeechConfig, SpeechRecognizer, AudioConfig, ResultReason
 
 @csrf_exempt
 def reconocer_voz(request):
@@ -20,11 +24,9 @@ def reconocer_voz(request):
         speech_config = SpeechConfig(subscription=SPEECH_KEY, region=SPEECH_REGION)
         speech_config.speech_recognition_language = "es-ES"
 
-
         # Configuración de audio para la transmisión
-        audio_file_path = None
-        audio_config = AudioConfig(filename=audio_file_path) if 'audio_file_path' in locals() else AudioConfig(use_default_microphone=True)
-
+        audio_file_path = None  # Esto se define más adelante si es necesario
+        audio_config = AudioConfig(filename=audio_file_path)
 
         # Configuración de reconocimiento de voz
         speech_recognizer = SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
@@ -50,7 +52,6 @@ def reconocer_voz(request):
         return JsonResponse({'resultado': resultado, 'contestacion': contestacion})
 
     return render(request, 'espejo.html')
-
 
 
 def login(request):
