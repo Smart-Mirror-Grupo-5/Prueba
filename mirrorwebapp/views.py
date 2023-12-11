@@ -25,8 +25,7 @@ def reconocer_voz(request):
         speech_config.speech_recognition_language = "es-ES"
 
         # Configuración de audio para la transmisión
-        audio_file_path = None  # Esto se define más adelante si es necesario
-        audio_config = AudioConfig(filename=audio_file_path)
+        audio_config = AudioConfig(use_default_microphone=True)
 
         # Configuración de reconocimiento de voz
         speech_recognizer = SpeechRecognizer(speech_config=speech_config, audio_config=audio_config)
