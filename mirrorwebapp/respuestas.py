@@ -1,5 +1,3 @@
-import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
 from bs4 import BeautifulSoup
 import requests
 import re
@@ -54,21 +52,17 @@ def google_answering(consulta):
         return 'ERROR'
 
 
-def consulta(consulta, model, tokenizer, device):
+def consulta(consulta):
     user_input = consulta
 
     # Utiliza la función para obtener la respuesta
     respuesta = responder_pregunta_o_conversacion(
-        user_input, model, tokenizer, device)
+        user_input)
 
-    print(f"{respuesta}")
-
-    # Guardar la respuesta en respuesta.txt
-    with open('respuesta.txt', 'a', encoding='utf-8') as f:
-        f.write(respuesta + '\n')
+    return str(respuesta)
 
 
-def responder_pregunta_o_conversacion(input_text, model, tokenizer, device):
+def responder_pregunta_o_conversacion(input_text):
     # Verifica si el input contiene una pregunta (termina con "?")
     es_pregunta = input_text.strip().endswith('?')
 
@@ -76,15 +70,6 @@ def responder_pregunta_o_conversacion(input_text, model, tokenizer, device):
         # Si es una pregunta, utiliza google_answering para obtener la respuesta
         respuesta = google_answering(input_text)
     else:
-        # Si es una conversación, ejecuta una ronda del chatbot
-        with torch.no_grad():
-            user_inputs_ids = tokenizer.encode(
-                input_text + tokenizer.eos_token, return_tensors="pt")
-            user_inputs_ids = user_inputs_ids.to(device)
-            chat_history = model.generate(
-                user_inputs_ids, max_length=1000, pad_token_id=tokenizer.eos_token_id)
-            step_model_answer = tokenizer.decode(
-                chat_history[:, user_inputs_ids.shape[-1]:][0], skip_special_tokens=True)
-            respuesta = step_model_answer
+        respuesta = "Prueba"
 
     return respuesta

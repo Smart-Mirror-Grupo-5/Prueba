@@ -19,7 +19,7 @@
                 url: "/reconocer-voz/",
                 type: "POST",
                 success: function (response) {
-                    $('#result').text(response.resultado);
+                    $('#result').html("<p>Pregunta: " + response.resultado + "</p><p>Respuesta: " + response.contestacion + "</p>");
                 },
                 error: function (xhr, errmsg, err) {
                     console.log(xhr.status + ": " + xhr.responseText);

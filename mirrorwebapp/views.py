@@ -2,10 +2,9 @@
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, redirect
 from .models import DatosPersona
+from .respuestas import consulta
 from django.views.decorators.csrf import csrf_exempt
 import azure.cognitiveservices.speech as speechsdk
-import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
 from bs4 import BeautifulSoup
 import requests
 import re
@@ -35,17 +34,9 @@ def reconocer_voz(request):
         elif speech_recognition_result.reason == speechsdk.ResultReason.Canceled:
             resultado = f"Reconocimiento de voz cancelado: {
                 speech_recognition_result.cancellation_details.error_details}"
+        contestacion = consulta(resultado)
 
-        model = AutoModelForCausalLM.from_pretrained(
-            'ostorc/Conversational_Spanish_GPT')
-        tokenizer = AutoTokenizer.from_pretrained(
-            'ostorc/Conversational_Spanish_GPT')
-        tokenizer.padding_side = "left"
-        device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
-        model.to(device)
-        consulta(str(resultado), model, tokenizer, device)
-
-        return JsonResponse({'resultado': resultado})
+        return JsonResponse({'resultado': resultado, 'contestacion': contestacion})
 
     return render(request, 'espejo.html')
 
