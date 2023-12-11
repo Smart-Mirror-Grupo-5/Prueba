@@ -10,6 +10,7 @@ import requests
 import re
 import wikipedia
 
+@csrf_exempt
 def reconocer_voz(request):
     if request.method == 'POST':
         SPEECH_KEY = '3c6987d5f8264f6eafe7d3eb9929e5f8'
