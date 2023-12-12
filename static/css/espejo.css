@@ -39,3 +39,14 @@ html {
     transform: scale(1.05);
 }
 
+
+button {
+    align-items: center;
+    padding: 15px 25px;
+    font-size: 80px;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 10px;
+  }
