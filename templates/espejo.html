@@ -23,6 +23,7 @@
                 url: "/reconocer-voz/",
                 type: "POST",
                 success: function (response) {
+                    console.log(response);
                     var pregunta = "<h1>Pregunta: " + response.resultado + "</h1>";
                     var respuesta = "<h1>Respuesta: " + response.contestacion + "</h1>";
 
