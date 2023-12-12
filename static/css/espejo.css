@@ -40,7 +40,18 @@ html {
 }
 
 
+
+.botones{
+    align-items: center;
+    margin: auto;
+    text-align: center;
+    
+
+
+}
 button {
+    margin:auto;
+    text-align: center;
     align-items: center;
     padding: 15px 25px;
     font-size: 80px;

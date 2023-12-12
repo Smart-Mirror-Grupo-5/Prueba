@@ -16,8 +16,10 @@
 <body>
 
     <div id="conversacion"></div>
-    <button id="startRecognition">Iniciar Reconocimiento de Voz</button>
-    <button id="borrarConversacion">Borrar Conversación</button>
+    <div class = "botones">
+        <button id="startRecognition">Iniciar Reconocimiento de Voz</button>
+        <button id="borrarConversacion">Borrar Conversación</button>
+    </div>
     <script>
         $('#startRecognition').click(function () {
             $.ajax({
