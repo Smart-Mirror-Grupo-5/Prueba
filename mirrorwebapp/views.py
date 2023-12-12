@@ -13,7 +13,7 @@ import speech_recognition as sr
 @csrf_exempt
 def reconocer_voz(request):
     if request.method == 'POST':
-        SPEECH_KEY = '14699ba66d264a5a9eca1262c58406aa'
+        SPEECH_KEY = '3c6987d5f8264f6eafe7d3eb9929e5f8'
         SPEECH_REGION = 'westeurope'
 
         speech_config = speechsdk.SpeechConfig(
@@ -33,7 +33,6 @@ def reconocer_voz(request):
         elif speech_recognition_result.reason == speechsdk.ResultReason.Canceled:
             resultado = f"Reconocimiento de voz cancelado: {
                 speech_recognition_result.cancellation_details.error_details}"
-
         contestacion = consulta(resultado)
 
         return JsonResponse({'resultado': resultado, 'contestacion': contestacion})
