@@ -45,7 +45,7 @@ def google_answering(consulta):
                 return answer
         except wikipedia.exceptions.PageError as e:
             print(f"Error al buscar la respuesta.")
-            return None
+            return "No he encontrado la respuesta."
 
     except requests.exceptions.RequestException as e:
         print(f"Error al realizar la solicitud: {e}")

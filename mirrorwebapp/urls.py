@@ -6,7 +6,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', views.index, name='index'),
+    path('', views.espejo, name='espejo'),
     path('index/', views.index, name='index'),
     path('login/', views.login, name='login'),
     path('espejo/', views.espejo, name='espejo'),
