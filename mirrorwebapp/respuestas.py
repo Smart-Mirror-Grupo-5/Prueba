@@ -65,6 +65,8 @@ def consulta(consulta):
 
 def respuesta_tipo(entrada):
     entrada = entrada.lower()
+    #quitar el punto final
+    entrada = entrada.replace('.', '')
     saludos = ['hola', 'buenos días', 'buenas tardes', 'buenas noches']
     despedidas = ['adiós', 'hasta luego', 'hasta pronto',
                   'hasta mañana', 'hasta la vista', 'hasta la próxima', 'nos vemos']
@@ -82,7 +84,7 @@ def respuesta_tipo(entrada):
 
     if entrada in saludos or any(palabra == 'hola' for palabra in palabras_entrada):
         return 'Hola Marcel, ¿en qué puedo ayudarte?'
-    elif entrada in despedidas or any(palabra == 'adiós' for palabra in palabras_entrada):
+    elif entrada in despedidas or any(palabra == 'adiós' for palabra in palabras_entrada) or any(palabra == 'adios' for palabra in palabras_entrada):
         return 'Hasta luego, que tengas un buen día.'
     elif entrada in agradecimientos or any(palabra == 'gracias' for palabra in palabras_entrada):
         return 'Un placer poder ayudarte.'
