@@ -1,12 +1,11 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #f5f5f5;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    font-size: 35px
 }
 
 .logo {
@@ -14,15 +13,15 @@ body {
 }
 
 .logo img {
-    width: 12.5px; /* 25% de 50px */
+    width: 50%; /* Ajustado para adaptarse al 50% del ancho de la pantalla */
     height: auto;
 }
 
 .container {
     position: relative;
-    width: 22.5%; /* 25% de 90% */
-    height: 20%; /* 25% de 80% */
-    margin-top: 12.5px; /* Ajusta según sea necesario */
+    width: 80%; /* Ajustado para adaptarse al 80% del ancho de la pantalla */
+    height: 60%; /* Ajustado para adaptarse al 60% de la altura de la pantalla */
+    margin-top: 15px; /* Ajusta según sea necesario */
 }
 
 .mirror {
@@ -30,38 +29,38 @@ body {
 }
 
 .formulario_inicio {
-    width: 20%; /* 25% de 80% */
-    padding: 1.25%; /* 25% de 5% */
+    width: 90%; /* Ajustado para adaptarse al 90% del ancho de la pantalla */
+    padding: 7%; /* Ajustado para adaptarse al 7% del ancho de la pantalla */
     background-color: #fff;
-    margin: 5px auto; /* Ajusta según sea necesario */
-    box-shadow: 0px 0px 2.5px 0px rgba(0, 0, 0, 0.1); /* 25% del valor original */
-    border-radius: 2.5px; /* 25% del valor original */
+    margin: 10px auto; /* Ajustado para adaptarse al 10px de margen en la parte superior e inferior */
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
 }
 
 h1 {
     text-align: center;
     color: #333;
-    font-size: 18px; /* Ajusta según sea necesario */
+    font-size: 7em; /* Ajustado para que la fuente sea más grande */
 }
 
 label {
     display: block;
-    margin-top: 3.75px; /* 25% de 15px */
+    margin-top: 8px; /* Ajustado para adaptarse al 8px de margen superior */
     color: #555;
     font-weight: bold;
-    font-size: 14px; /* Ajusta según sea necesario */
+    font-size: 1.4em; /* Ajustado para que la fuente sea más grande */
 }
 
 input,
 select,
 textarea {
     width: 100%;
-    padding: 3px; /* 25% de 12px */
-    margin: 2px 0; /* 25% de 8px */
+    padding: 12px; /* Ajustado para adaptarse al 12px de relleno */
+    margin: 8px 0; /* Ajustado para adaptarse al 8px de margen superior e inferior */
     box-sizing: border-box;
-    border: 0.75px solid #ccc; /* 25% del valor original */
-    border-radius: 1px; /* 25% del valor original */
-    top: 0.25%; /* 25% de 1% */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1.2em; /* Ajustado para que la fuente sea más grande */
 }
 
 select {
@@ -71,14 +70,14 @@ select {
 button {
     background-color: rgb(37, 116, 200);
     color: white;
-    padding: 3.5px 5px; /* 25% del valor original */
-    margin: 3.75px 0; /* 25% de 15px */
+    padding: 16px 20px; /* Ajustado para adaptarse al 16px de relleno arriba y abajo, 20px de relleno a los lados */
+    margin: 8px 0; /* Ajustado para adaptarse al 8px de margen superior e inferior */
     border: none;
-    border-radius: 1px; /* 25% del valor original */
+    border-radius: 6px;
     cursor: pointer;
     width: 100%;
     transition: opacity 0.3s ease-in-out;
-    font-size: 14px; /* Ajusta según sea necesario */
+    font-size: 1.4em; /* Ajustado para que la fuente sea más grande */
 }
 
 button:hover {
@@ -86,8 +85,7 @@ button:hover {
 }
 
 /* Estilos adicionales para mejorar la apariencia en dispositivos más pequeños */
-@media only screen and (max-width: 400px) {
-    .formulario_inicio {
-        width: 22.5%; /* 25% de 90% */
-    }
+
+p {
+    font-size: em; /* Esto ajustará el tamaño de la fuente a 1.1 veces el tamaño de la fuente del elemento padre (en este caso, el <body>) */
 }
