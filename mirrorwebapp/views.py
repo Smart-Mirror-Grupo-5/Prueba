@@ -86,6 +86,7 @@ def procesar_formulario(request):
         fecha_nacimiento = request.POST.get('fechaNacimiento')
         dni = request.POST.get('dni')
         habitacion = request.POST.get('habitacion')
+        espejo = request.POST.get('espejo')
         horario_med = request.POST.get('horarioMed')
         problemas_medicos = request.POST.get('problemasMedicos')
         alergias = request.POST.get('alergias')
@@ -100,6 +101,7 @@ def procesar_formulario(request):
             fecha_nacimiento=fecha_nacimiento,
             dni=dni,
             habitacion=habitacion,
+            espejo=espejo,
             horario_med=horario_med,
             problemas_medicos=problemas_medicos,
             alergias=alergias,

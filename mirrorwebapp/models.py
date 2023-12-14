@@ -12,6 +12,7 @@ class DatosPersona(models.Model):
     fecha_nacimiento = models.DateField()
     dni = models.CharField(max_length=20)
     habitacion = models.CharField(max_length=20)
+    espejo = models.CharField(max_length=20)
     horario_med = models.CharField(max_length=20, choices=[
         ('manana', 'Mañana'),
         ('tarde', 'Tarde'),

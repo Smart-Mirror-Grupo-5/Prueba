@@ -20,7 +20,7 @@
             <div class="user">
                 <h2><a href="{% url 'ayuda' usuario_id=persona.id %}">{{ persona.nombre }} {{ persona.apellidos }}</a>
                 </h2>
-                <p>Habitación {{ persona.habitacion }} <span class="arrow">&rarr;</span> Espejo 1</p>
+                <p>Habitación {{ persona.habitacion }} <span class="arrow">&rarr;</span> Espejo {{ persona.espejo }}</p>
             </div>
             {% endfor %}
 

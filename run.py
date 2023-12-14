@@ -8,4 +8,5 @@ os.system("python manage.py collectstatic")
 os.system("python manage.py migrate")
 os.system("python manage.py runserver")
 
+# Para eliminar la base de datos:
 # os.system("python manage.py flush")
