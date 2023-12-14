@@ -45,7 +45,7 @@ def login(request):
         contraseña = request.POST.get('contraseña')
 
         if nombre_usuario == 'admin' and contraseña == 'admin':
-            return redirect('espejo')
+            return redirect('registro')
 
         error_message = "Credenciales incorrectas. Inténtalo de nuevo."
         return render(request, 'login.html', {'error_message': error_message})
@@ -60,8 +60,8 @@ def espejo(request):
     return render(request, 'espejo.html')
 
 
-def añadirusuario(request):
-    return render(request, 'añadirusuario.html')
+def registro(request):
+    return render(request, 'registro.html')
 
 
 def ayuda(request):
