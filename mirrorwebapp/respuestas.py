@@ -82,7 +82,7 @@ def respuesta_tipo(entrada):
 
     if entrada in saludos or any(palabra == 'hola' for palabra in palabras_entrada):
         return 'Hola Marcel, ¿en qué puedo ayudarte?'
-    elif entrada in despedidas or any(palabra == 'adiós' for palabra in palabras_entrada):
+    elif entrada in despedidas or any(palabra == 'adiós' for palabra in palabras_entrada) or any(palabra == 'adios' for palabra in palabras_entrada):
         return 'Hasta luego, que tengas un buen día.'
     elif entrada in agradecimientos or any(palabra == 'gracias' for palabra in palabras_entrada):
         return 'Un placer poder ayudarte.'
