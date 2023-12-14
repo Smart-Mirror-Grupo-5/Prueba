@@ -27,8 +27,8 @@
                 type: "POST",
                 success: function (response) {
                     console.log(response);
-                    var pregunta = "<h1>Pregunta: " + response.resultado + "</h1>";
-                    var respuesta = "<h1>Respuesta: " + response.contestacion + "</h1>";
+                    var pregunta = "<h1>" + response.resultado + "</h1>";
+                    var respuesta = "<h1>" + response.contestacion + "</h1>";
 
                     var divPregunta = $('<div class="mensaje_usuario"></div>').append(pregunta);
                     var divRespuesta = $('<div class="mensaje_bot"></div>').append(respuesta);
