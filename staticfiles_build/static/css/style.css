@@ -1,4 +1,5 @@
 body {
+  font-family: 'Chivo', sans-serif;
   display: flex;
   flex-direction: column;
   padding: 0 10px;
@@ -6,7 +7,6 @@ body {
   justify-content: center;
   min-height: 100vh;
 }
-
 
 
 .container {
@@ -52,6 +52,10 @@ body {
 }
 
 .logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   text-align: center;
 }
 

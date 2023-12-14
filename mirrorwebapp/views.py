@@ -1,6 +1,6 @@
 # mirrorwebapp/views.py
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import DatosPersona
 from .respuestas import consulta
 from django.views.decorators.csrf import csrf_exempt
@@ -45,7 +45,7 @@ def login(request):
         contraseña = request.POST.get('contraseña')
 
         if nombre_usuario == 'admin' and contraseña == 'admin':
-            return redirect('registro')
+            return redirect('habitacion')
 
         error_message = "Credenciales incorrectas. Inténtalo de nuevo."
         return render(request, 'login.html', {'error_message': error_message})
@@ -64,13 +64,20 @@ def registro(request):
     return render(request, 'registro.html')
 
 
-def ayuda(request):
-    return render(request, 'ayuda.html')
+def ayuda(request, usuario_id):
+    usuario = DatosPersona.objects.get(id=usuario_id)
+
+    context = {
+        'usuario': usuario
+    }
+
+    return render(request, 'ayuda.html', context)
+
 
 
 def habitacion(request):
-    return render(request, 'habitacion.html')
-
+    personas_registradas = DatosPersona.objects.all()
+    return render(request, 'habitacion.html', {'personas_registradas': personas_registradas})
 
 def procesar_formulario(request):
     if request.method == 'POST':
@@ -101,8 +108,9 @@ def procesar_formulario(request):
             telefono_contacto=telefono_contacto,
         )
         datos_persona.save()
+        personas_registradas = DatosPersona.objects.all()
 
         # Redirigir a alguna página de éxito o a donde desees después de guardar los datos
-        return redirect('index')
+        return redirect('habitacion')
 
-    return render(request, 'añadirusuario.html')
+    return render(request, 'habitacion.html', {'personas_registradas': personas_registradas})

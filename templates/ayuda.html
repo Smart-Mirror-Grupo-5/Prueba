@@ -7,76 +7,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Información de Habitación</title>
     <link rel="stylesheet" href="{% static 'css/ayuda.css' %}">
-    <link rel="stylesheet" href="{% static 'css/estilos.css' %}">
     <link rel="stylesheet" href="{% static 'css/fondo1.css' %}">
 </head>
 
 <body>
     <div class="container">
-        <div class="mirror">
-            <div class="logo">
-                <img src="{% static 'images/logo3.png' %}" alt="Logo">
-            </div>
-            <h1>Información de Habitación</h1>
-
-            <p>Cada usuario tiene su habitacion asignada, y en ella hay un espejo personalizado segun sus necesidades.
-            </p>
-
-        </div>
+        <h1>Datos de Usuario</h1>
+        <table>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ usuario.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Apellidos</th>
+                <td>{{ usuario.apellidos }}</td>
+            </tr>
+            <tr>
+                <th>Fecha de Nacimiento</th>
+                <td>{{ usuario.fecha_nacimiento }}</td>
+            </tr>
+            <tr>
+                <th>DNI</th>
+                <td>{{ usuario.dni }}</td>
+            </tr>
+            <tr>
+                <th>Habitación</th>
+                <td>{{ usuario.habitacion }}</td>
+            </tr>
+            <tr>
+                <th>Horario de Medicación</th>
+                <td>{{ usuario.horario_med }}</td>
+            </tr>
+            <tr>
+                <th>Problemas Médicos</th>
+                <td>{{ usuario.problemas_medicos }}</td>
+            </tr>
+            <tr>
+                <th>Alergias</th>
+                <td>{{ usuario.alergias }}</td>
+            </tr>
+            <tr>
+                <th>Medicamentos</th>
+                <td>{{ usuario.medicamentos }}</td>
+            </tr>
+            <tr>
+                <th>Persona de Contacto</th>
+                <td>{{ usuario.persona_contacto }}</td>
+            </tr>
+            <tr>
+                <th>Teléfono de Contacto</th>
+                <td>{{ usuario.telefono_contacto }}</td>
+            </tr>
+        </table>
     </div>
-    </div>
-    <div class="area">
-        <ul class="circles">
-
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
 </body>
 
 </html>

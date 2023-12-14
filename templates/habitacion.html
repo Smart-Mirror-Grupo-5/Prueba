@@ -12,78 +12,25 @@
 </head>
 
 <body>
-    <div class="container">
 
-        <h1>Información Usuarios Registrados</h1>
+    <body>
+        <div class="container">
+            <h1>Información Usuarios Registrados</h1>
+            {% for persona in personas_registradas %}
+            <div class="user">
+                <h2><a href="{% url 'ayuda' usuario_id=persona.id %}">{{ persona.nombre }} {{ persona.apellidos }}</a>
+                </h2>
+                <p>Habitación {{ persona.habitacion }} <span class="arrow">&rarr;</span> Espejo 1</p>
+            </div>
+            {% endfor %}
 
-
-        <div class="user">
-            <h2><a href='{% url "ayuda" %}'>Usuario 1</a></h2>
-            <p>Habitación 1 <span class="arrow">&rarr;</span>Espejo 1</p>
+            <button class="Registro">Añadir Residentes</button>
         </div>
-        <div class="user">
-            <h2><a href='{% url "ayuda" %}'>Usuario 2</a></h2>
-            <p>Habitación 2 <span class="arrow">&rarr;</span>Espejo 2</p>
-        </div>
-        <div class="user">
-            <h2><a href='{% url "ayuda" %}'>Usuario 3</a></h2>
-            <p>Habitación 3 <span class="arrow">&rarr;</span>Espejo 3</p>
-        </div>
-    </div>
-
-
-    <div class="area">
-        <ul class="circles">
-
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ul>
-</body>
+        <script>
+            document.querySelector('.Registro').addEventListener('click', function () {
+                window.location.href = "{% url 'registro' %}";
+            });
+        </script>
+    </body>
 
 </html>
