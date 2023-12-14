@@ -65,6 +65,8 @@ def consulta(consulta):
 
 def respuesta_tipo(entrada):
     entrada = entrada.lower()
+    #quitar el punto final
+    entrada = entrada.replace('.', '')
     saludos = ['hola', 'buenos días', 'buenas tardes', 'buenas noches']
     despedidas = ['adiós', 'hasta luego', 'hasta pronto',
                   'hasta mañana', 'hasta la vista', 'hasta la próxima', 'nos vemos']
