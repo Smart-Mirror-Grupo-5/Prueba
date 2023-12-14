@@ -65,10 +65,13 @@ def consulta(consulta):
 
 def respuesta_tipo(entrada):
     entrada = entrada.lower()
-    # quitar el punto final
+    # quitar el punto final y las comas
     entrada = entrada.replace('.', '')
     entrada = entrada.replace(',', '')
     entrada = entrada.replace(';', '')
+    entrada = entrada.replace(':', '')
+    entrada = entrada.replace('!', '')
+    entrada = entrada.replace('?', '')
     saludos = ['hola', 'buenos días', 'buenas tardes', 'buenas noches']
     despedidas = ['adiós', 'hasta luego', 'hasta pronto',
                   'hasta mañana', 'hasta la vista', 'hasta la próxima', 'nos vemos']
@@ -90,12 +93,14 @@ def respuesta_tipo(entrada):
         return 'Hasta luego, que tengas un buen día.'
     elif entrada in agradecimientos or any(palabra == 'gracias' for palabra in palabras_entrada):
         return 'Un placer poder ayudarte.'
-    elif any(palabra in ['cómo', 'tal'] for palabra in palabras_entrada) and any(palabra in ['estás', 'tal'] for palabra in palabras_entrada):
+    elif any(palabra in ['cómo', 'tal', 'estás'] for palabra in palabras_entrada):
         return 'Estoy muy bien, gracias por preguntar.'
     elif any(palabra in ['chiste', 'cuentame'] for palabra in palabras_entrada):
         return random.choice(chistes)
     elif any(palabra in ['trabalenguas', 'cuentame'] for palabra in palabras_entrada):
         return random.choice(trabalenguas)
+    elif any(palabra in ['nombre', 'llamas', 'llamo'] for palabra in palabras_entrada):
+        return 'Por ahora no tengo un nombre'
     else:
         return None
 
