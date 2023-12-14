@@ -62,11 +62,14 @@ def consulta(consulta):
 
     return str(respuesta)
 
+
 def respuesta_tipo(entrada):
     entrada = entrada.lower()
     saludos = ['hola', 'buenos días', 'buenas tardes', 'buenas noches']
-    despedidas = ['adiós', 'hasta luego', 'hasta pronto', 'hasta mañana', 'hasta la vista', 'hasta la próxima', 'nos vemos']
-    agradecimientos = ['gracias', 'muchas gracias', 'gracias por todo', 'muchas gracias por todo']
+    despedidas = ['adiós', 'hasta luego', 'hasta pronto',
+                  'hasta mañana', 'hasta la vista', 'hasta la próxima', 'nos vemos']
+    agradecimientos = ['gracias', 'muchas gracias',
+                       'gracias por todo', 'muchas gracias por todo']
     chistes = ['¿Por qué las focas del circo miran siempre hacia arriba? Porque es donde están los focos.',
                '¿Qué le dice un pez a otro? Nada.',
                '¿Qué le dice un jaguar a otro jaguar? Jaguar you.']
@@ -108,5 +111,4 @@ def responder_pregunta_o_conversacion(input_text):
             respuesta = google_answering(input_text)
         else:
             respuesta = "No te he entendido, ¿puedes repetirlo?"
-
-    return respuesta
+        return respuesta
