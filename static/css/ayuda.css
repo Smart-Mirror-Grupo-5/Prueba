@@ -5,7 +5,8 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    font-size: 2vw; /* Cambiado a unidad de vista de ancho para hacerlo más responsivo */
+    font-size: 2vw;
+    /* Cambiado a unidad de vista de ancho para hacerlo más responsivo */
 }
 
 .logo {
@@ -40,7 +41,8 @@ body {
 h1 {
     text-align: center;
     color: #333;
-    font-size: 4em; /* Tamaño de fuente reducido */
+    font-size: 4em;
+    /* Tamaño de fuente reducido */
 }
 
 label {
@@ -48,7 +50,8 @@ label {
     margin-top: 8px;
     color: #555;
     font-weight: bold;
-    font-size: 1.2em; /* Tamaño de fuente reducido */
+    font-size: 1.2em;
+    /* Tamaño de fuente reducido */
 }
 
 input,
@@ -60,7 +63,8 @@ textarea {
     box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 6px;
-    font-size: 1em; /* Tamaño de fuente reducido */
+    font-size: 1em;
+    /* Tamaño de fuente reducido */
 }
 
 select {
@@ -77,7 +81,8 @@ button {
     cursor: pointer;
     width: 100%;
     transition: opacity 0.3s ease-in-out;
-    font-size: 1.2em; /* Tamaño de fuente reducido */
+    font-size: 1.2em;
+    /* Tamaño de fuente reducido */
 }
 
 button:hover {
@@ -87,8 +92,10 @@ button:hover {
 /* Estilos adicionales para mejorar la apariencia en dispositivos más pequeños */
 
 p {
-    font-size: 1em; /* Cambiado a em para ajustarse al tamaño del elemento padre (body) */
+    font-size: 1em;
+    /* Cambiado a em para ajustarse al tamaño del elemento padre (body) */
 }
+
 
 @media only screen and (max-width: 400px) {
     .container {
@@ -98,4 +105,21 @@ p {
     .mirror {
         width: 90%;
     }
+}
+
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th,
+td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
 }
