@@ -1,41 +1,54 @@
 body {
-    font-family: 'Chivo', sans-serif;
-    background-color: #f5f5f5;
     margin: 0;
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    font-size: 2vw; /* Cambiado a unidad de vista de ancho para hacerlo más responsivo */
+}
+
+.logo {
+    text-align: center;
+}
+
+.logo img {
+    width: 50%;
+    height: auto;
 }
 
 .container {
     position: relative;
-    width: 90%;
-    height: 80%; /* Ajusta según sea necesario */
-    margin-top: 50px ;
+    width: 80%;
+    height: 60%;
+    margin-top: 15px;
 }
 
 .mirror {
-    width: 80%; /* Ajusta según sea necesario */
-    padding: 5%;
-    background-color: #fff;
-    margin: 20px auto; /* Ajusta según sea necesario */
-    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
     text-align: center;
+}
+
+.formulario_inicio {
+    width: 90%;
+    padding: 7%;
+    background-color: #fff;
+    margin: 10px auto;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
 }
 
 h1 {
     text-align: center;
     color: #333;
+    font-size: 4em; /* Tamaño de fuente reducido */
 }
 
 label {
     display: block;
-    margin-top: 15px;
+    margin-top: 8px;
     color: #555;
     font-weight: bold;
+    font-size: 1.2em; /* Tamaño de fuente reducido */
 }
 
 input,
@@ -46,21 +59,43 @@ textarea {
     margin: 8px 0;
     box-sizing: border-box;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 6px;
+    font-size: 1em; /* Tamaño de fuente reducido */
 }
 
 select {
     appearance: none;
 }
 
-p {
-    margin-bottom: 15px;
-    color: #555;
+button {
+    background-color: rgb(37, 116, 200);
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    transition: opacity 0.3s ease-in-out;
+    font-size: 1.2em; /* Tamaño de fuente reducido */
+}
+
+button:hover {
+    opacity: 0.8;
 }
 
 /* Estilos adicionales para mejorar la apariencia en dispositivos más pequeños */
+
+p {
+    font-size: 1em; /* Cambiado a em para ajustarse al tamaño del elemento padre (body) */
+}
+
 @media only screen and (max-width: 400px) {
     .container {
+        width: 90%;
+    }
+
+    .mirror {
         width: 90%;
     }
 }
